@@ -1,0 +1,233 @@
+
+Java Concurrent Programming [ Multi Threaded applications]
+--------------------------
+
+Program ---> Process [ Program in execution]
+
+A process must atleast contain one unit of work.
+
+Thread is a Unit of work.
+
+If an application has many concurrent units of work happening then we say its 
+multi-threaded application
+
+
+Single- Threaded : Notepad
+Multi- Threaded : Eclipse , Word, Excel, Browser, ....
+
+----------------
+
+Why Multi-threaded application?
+
+1) Optimization of Usage of resources
+2) Optimzation of CPU IDLE time
+3) Avoid Starvation
+
+---------------------------------
+
+To create Threads Java Provides:
+
+1) Thread class
+	Contains thread control methods:
+	a) start()
+	b) sleep(long ms)
+	c) yield()
+	d) join()
+	e) interrupt()
+	deprecated methods
+	f) stop()
+	g) suspend()
+	i) resume()
+
+2) Runnable interface
+
+	interface Runnable {
+		public void run();
+	}
+
+---------------------------------
+
+Thread Safety
+
+Data can get corrupted in muti-threaded env.
+
+Local Variables --> Stack ---> thread safe
+instance --> Heap --> not safe
+static --> Class Data ---> not safe
+immutable objects ---> heap --> safe
+volatile variables ---> heap --> safe
+
+
+
+	volatile ---> marker to specify the CPU not to optimize
+
+	Only atomic variables can be marked as volatile
+
+	volatile boolean flag = true;
+
+	int x = 10;
+	x++;
+------------------------
+
+	Producer 		and 			Consumer
+
+	GENERATE --> 		BUFFER <---			CONSUME
+
+------------------------------------------
+
+
+	Thread Pooling
+		start() is not acceptable
+
+
+	interface Callable<T> {
+		T call() throws Exception;
+	}
+
+
+	public class BankService {
+
+		public void transferFunds(Account from, Account to, double amt) {
+			synchronized(from) {
+				synchronized(to) {
+					from.withdraw(amt);
+					to.deposit(amt);
+				}
+			}
+		}
+	}
+-------------------------------------------------------------------------------------
+
+	Java Database Connectivity ( JDBC )
+
+	JDBC is an Integration API to connect to RDBMS
+
+	Different ways of connecting:
+
+	TYPE 1:
+
+	JAVA <---> JDBC <---> JDBC ODBC Bridge <---> ODBC <---> Database
+
+	ODBC ---> Open Database connectivity, they are integration apis provided by Microsoft
+
+
+	TYPE 2:
+
+	JAVA <---> JDBC <---> Native Drivers <---> Database
+
+	Native Drivers ---> Provided by database vendors
+
+
+	TYPE 3:
+
+	JAVA <---> JDBC <---> NET Drivers <---> Database
+
+	NET Drivers ---> Middle Tier Server
+
+
+	TYPE 4:
+
+	JAVA <---> JDBC <---> Pure Java Drivers <---> Database
+
+	Use IP and PORT of database to connect
+
+	------------
+
+	Java JDBC APIs contain only interface and not implementation classes
+
+
+	JDBC Apis
+
+	Steps to connect to DB:
+
+	1)  Load the driver classes provided by Database vendors [ .jar files ]
+
+	Class.forName(DRIVER_CLASS)
+
+	 Example
+	 Class.forName("oracle.jdbc.OracleDriver")
+
+
+	 Class.forName("com.mysql.jdbc.Driver")
+
+
+	 2)  Establish a database connection
+
+	 	Connection con = DriverManager.getConnection(URL, USER, PWD);
+
+	 	URL Example:
+
+	 	jdbc:oracle:thin:@194.1.42.111:1521:emp_db
+
+	 	jdbc:mysql://194.1.42.111:3306/emp_db
+
+	 3) SEND DDL and DML 
+	 		DML for CRUD operations
+	 		interfaces for SQL
+	 		a) Statement
+	 			for FIXED SQL: SELECT * FROM EMP
+	 		b) PreparedStatement
+	 			for IN PARAMATERS
+	 			INSERT INTO EMP VALUES( ?, ?, ?)
+
+	 			AVOID:
+	 				int no  =13;
+	 				String name = "RAJ";
+	 			"INSERT INTO EMP VALUES( " + no + ", '" + name + "')";
+
+
+	 		c) CallableStatement
+
+	 			to invoke stored procedure
+
+	 	4) Traverse thro the results ( SELECT statement )
+
+	 		ResultSet
+	-------------------------------------------------
+
+	Maven is an automation build tool
+
+		1) Dependencies
+		2) clean , compile , test  and deploy tasks should be automated
+		3) skeleton structure based on artifacts
+
+
+
+
+		org.hsqldb.jdbcDriver
+		jdbc:hsqldb:hsql://localhost
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

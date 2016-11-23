@@ -1,0 +1,577 @@
+
+Java Programming
+----------------
+
+Banu Prakash . C
+banuprakashc@yahoo.co.in
+-------------------------
+
+Softwares REquired:
+JDK1.8
+Eclipse for JEE Mars +
+
+-----------------------------------------------
+
+OOP -- > Object Oriented Paradigm
+
+SOLID Design Principles:
+
+S ---> Single Responsibility
+O ---> Open Close Principle
+L ---> Liskov Substitution Principle
+I ---> Interface Seggregation
+D ---> Dependency Injection ( Inversion Of Control )
+
+-----------------------------------------
+
+What is Java?
+-------------
+	Java is a Technology. 
+	Java Tech provides a Platform [ RTE and API ]
+
+
+	Compile Time Environment:
+
+	Source Code ---> Compiler -----> Byte Code (.class)
+	Example.java  ---> javac Example.java ---> Example.class
+	A.groovy  --> groovyc A.groovy  --> A.class
+
+ 
+ 	Runtime Environment: (JRE)
+
+ 	class Person {
+ 		private int id;
+ 		private String name;
+
+ 		public void setName(String n) {
+ 			this.name = n;
+ 		} 
+ 	}
+
+ 	class Example {
+ 		public static void main(String[] args) {
+ 			Person p1 = new Person();
+ 			p1.setName("A");
+ 			Person p2 = new Person();
+ 			p2.setName("A2");
+ 		}
+ 	}
+----------------------------------
+
+Primitive types [Stack]								Reference types [Heap]
+byte 		[ 1 byte ]									array
+short													class			
+int 													interface
+long 													
+
+float
+double
+
+char [ 2 bytes -- Unicode character set]
+boolean
+
+--------------------
+
+	Array is a reference type
+
+	int[] data = new int[3];
+
+	int values[4]; //error
+
+	int[] data = {454,26,37,7};
+
+	int[][] data = new int[3][2];
+---------------------------------------------
+
+OOP
+	Objects:
+		contain state and behavior
+
+	public class Account {
+		private String accNo; // instance var
+		private double balance;
+
+		// instance method
+		public void deposit(double amt) { /public void deposit(Account this, double amt) {
+			this.balance += amt;
+		}
+	}		
+
+
+	Account first = new Account();
+	Account second = new Account();
+	first.balance =4444; //error
+	first.deposit(5000.00); 	// deposit(first, 5000.00);
+
+----------------------------------------------
+
+Logical grouping of classes
+1) entity class / Domain class / Model class ===> POJO [ Plain old Java Object]
+	the represent business data
+	Example: Customer, Order, Product, Account
+2) Exception class
+	They represent abnormal condition that might arise in your program
+3) DAO classes [ Data Access Object]
+	They contain CRUD operations 
+4) Business classes ==> contains business logic
+5) Service classes 
+	A facade over business and DAO classes
+
+6) UI classes
+
+--------------------
+
+Comments
+	Developer comments
+	1) Single line
+
+		// comments
+
+	2) Multiline comment
+		/*
+
+
+		*/
+
+	Documentation comments for API users
+
+	/**
+
+
+	*/
+-------------------------
+
+	Relationship between objects:
+	1) Generalization and Specializtion
+	2) Realization
+	3) Association
+	4) Uses A
+
+
+	public class Product {
+
+	}
+
+	public class Mobile extends Product {
+
+	}
+
+	new Mobile(); // memory is allocated for members of Product and Mobile
+
+
+	----------
+
+	public class Product {
+		Product() {
+			super();
+			"A"
+		}
+
+		Product(int id) {
+		super();
+			"B"
+		}
+	}
+
+	public class Mobile extends Product {
+		Mobile() {
+		super();
+			"C"
+		}
+		Mobile(int id, String connectivity) {
+		super();
+			"D"
+		}
+
+	}
+
+
+	new Mobile(); // A and C
+	new Mobile(100,"4G"); // A and D
+
+
+---------------
+	public class Product {
+		Product() {
+			super();
+			"A"
+		}
+
+		Product(int id) {
+		super();
+			"B"
+		}
+	}
+
+	public class Mobile extends Product {
+		Mobile() {
+		super();
+			"C"
+		}
+		Mobile(int id, String connectivity) {
+			super(id);
+			"D"
+		}
+
+	}
+
+
+	new Mobile(); // A and C
+	new Mobile(100,"4G"); // B and D
+----------------------------------------------------
+
+
+	public class Product {
+		public void one() {
+			"A";
+		}
+
+		public void two() {
+			"B"
+		}
+	}
+
+	public class Mobile extends Product {
+		public void two() {
+			"MB"
+		}
+		public void three() {
+			"C"
+		}
+	}
+
+	Mobile m = new Mobile();
+		m.one(); // A
+		m.two(); // MB
+		m.three(); // C
+
+	Product p = new Mobile();
+
+		p.one(); // A
+		p.two(); // MB
+		p.three(); // error
+
+
+-----------------------------------------------------------------------
+
+	IS A --> Inheritance ---> Generalization and Specialization relationship
+
+	abstract class --> You can't instantiate
+
+	abstract method --> incomplete method --> Class which extends should override
+
+-----------------------------------------------------------------------------------
+
+Exception Handling
+
+	An abnormal condition that arises during program execution is an exception	
+
+	In Java Exception object gives me the following:
+	1) What went wrong [ ArithmeticException]
+	2) Why did it go wrong [ / by zero ]
+	3) Where did it go wrong [ line no and method name and class name]
+
+	public class Test {
+
+	public static void main(String[] args) {
+		System.out.println("Hello");
+		int x = 10;
+		int y = 0;
+		divide(x, y);
+	}
+
+	private static void divide(int i, int j) {
+		int result = i /j;
+		System.out.println(result);
+	}
+
+}
+
+
+
+
+	Exception [ Abonrmal condtions can be classified broadly into two types Error and Exception]
+
+	Error type of exception can't be handled during program exection	
+
+	----------
+	Exception type exceptions [abnormal condtion] are again divided into:
+
+	unchecked type 														checked type
+
+	1) Compiler does not enforce	 							2) compiler forces you to handle
+	 you to handle it
+
+	2) Happens due to reasons within JRE 						2) Exception reason is because of outside JRE
+
+	3) They are suposed to be handled using						3) try - catch - finally block is used
+	 conditional statement 												to handle the exception
+
+
+	 try {
+	 		//actual lines of code
+	 } catch(ExcpetionType1 ex) {
+	 	// handling code
+	 } catch(ExcpetionType2 ex) {
+	 	// handling code
+	 } finally {
+	 	// resource release code
+	 }
+	 ---------------------
+
+
+	 Exceptions are pushed up the call stack.
+
+
+public class Test {
+	public static void main(String[] args) throws ClassNotFoundException {
+		try {
+		 first();
+		} catch(Exception ex) {
+			System.out.println("Problem");
+		}
+		 second();
+		
+	}
+
+	private static void second() throws ClassNotFoundException {
+		Class.forName("com.a.b.Product.class");
+	}
+
+	private static void first() {
+		int x = 10;
+		int y = 0;
+		System.out.println(x / y);
+	}
+ 
+}
+
+-----------------------------------------------------------------------------------
+
+Relationship between objects
+1) Generalization and Specialization
+2) Realization
+3) Association
+
+Realization realationship: One component will realize the behaviour specified by other, this is achived using 
+interface
+
+
+Why program to interface?
+
+1) DESIGN
+2) DEVELOPMENT
+3) TESTING
+4) INTEGRATION
+
+	interface interfaceName {
+		abstract methods
+		constants
+
+	}
+
+
+ Class.forName("java.lang.String")
+
+ -------------
+
+ Interfaces for OCP--> Open Close Principle
+
+
+ interface Flyable {
+ 	fly();
+ }
+
+ class Bird implements Flyable {
+ 	fly() { 
+
+ 	}
+ }
+
+ Flyable f = new Bird();
+
+ Flyable f = new Flyable(); // error
+
+ Anonymous class
+  Flyable f = new Flyable() {
+  	fly() { 
+  			"jump from 7th floor"
+  		}
+  }
+
+
+
+ ---------
+
+ 	Book
+ 		title and price
+
+ 	Books to be sorted based on price
+
+ -------------------------------------------------------------
+ 																		Fight f = new Hero();
+ interface Dance {														f.fight();
+ 	dance();															f.dance(); // error	
+ }																		Dance d = (Dance) f;
+ 																		d.dance(); 
+ interface Fight {
+ 	fight();
+ }
+
+ interface Swim {
+ 	swim();
+ }
+
+ class Actor implements Dance {
+ 	dance() { }
+ }
+
+ class Hero extends Actor implements Fight, Swim {
+ 	fight() {}
+ 	swim() { }
+ }
+------------------------------------------------------------
+
+Generic classes
+
+	class Rectangle {
+		int width;
+		int height;
+		//
+	}
+
+	Rectangle r = new Rectangle(4,5);
+
+	class DRectangle {
+		double width;
+		double height;
+		//
+	}
+
+	DRectangle r = new DRectangle(1.4,4.5);
+
+----------
+	java 1.5 + introduced Generic class
+
+
+	class Rectangle<T> {
+		T width;
+		T height;
+	}
+
+	Rectangle<Integer> r1 = new Rectangle<Integer>(4,5);
+
+	Rectangle<Double> r2 = new Rectangle<Double>(1.4,3.5);
+
+
+	Integer, Double , Float, Long, are type wrapper classes for primitive types int, double. float, long
+
+
+
+	class Rectangle<T> {				class Rectangle {
+		T width;								Object width;
+		T height;								Object height;
+	}									}
+
+
+	class Rectangle {
+		Object width;
+		Object height;
+	}
+
+	Rectangle  r1 = new Rectangle (4,"A");
+
+	class Store<T1,T2> {
+		T1 x;
+		T2 y;
+	}
+
+	Store<Integer,String> s1 =  new Store<Integer, String> (35,"Ag");
+
+	class Rectangle<T> {
+		T width;
+		T height;
+	}
+
+	Rectangle<Integer> r1 = new Rectangle<Integer>(4,5);
+
+	Rectangle<Double> r2 = new Rectangle<Double>(1.4,3.5);
+
+	Rectangle<String> r3 = new Rectangle<String>("Hello", "World"); 
+
+	class Rectangle<T extends Number> {
+		T width;								Number width;
+		T height;								Number heigth;
+	}
+
+	------------------------------------------
+
+		Java Collection Framework (Data Structure)
+		--------------------------------------
+
+	 	1) interfaces
+	 	2) implementation classes
+	 	3) Algorithm classes []
+
+	List 									Set
+1) Supports duplicate elements 				unique
+2) supports index based operation 			not supports
+3) Ordered 									not ordered
+4) RE-ORDER
+
+Vector is a legacy container [ VEry slow, it uses locking mechanism ]
+
+ArrayList and LinkedList
+
+	String[] names = {"Harry","Angelina","Dave","Patrick"};
+
+
+		// Angelina, Dave, Harry, Patrick
+
+-----------------------------------------------------------------
+
+	Flyable 
+
+
+	interface Greeting {
+		void greet(String name);
+	}
+
+	public class Sample {
+		public void hello(Greeting g) {
+			g.greet("Smith");
+		}
+	}
+
+
+	class MorningGreet implements Greeting {
+		public void greet(String name) {
+			System.out.println("Good Morning " + name);
+		}
+	}
+
+	Sample s = new Sample();
+	s.hello(new MorningGreet());
+	s.hello(("Tim") -> { });
+--------------------------------------------------------------------------
+
+List list = new ArrayList();
+List list = new LinkedList();
+
+list.add(13);
+list.add("A");
+list.add(new Date());
+
+list.get(2);
+
+
+List<String> list = new ArrayList<String>();
+
+Product p = new Product("A",34,"B");
+
+s.o.p(p);
+
+--------------
+
+Map is a container which stores data in the form of KEY/VALUE pairs
+Examples: Dictionary, DNS server, Registry
