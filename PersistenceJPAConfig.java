@@ -1,4 +1,4 @@
-package com.adobe.prj;
+package com.cisco.dao.prj;
 
 import java.util.Properties;
 
@@ -24,7 +24,7 @@ public class PersistenceJPAConfig{
    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
       em.setDataSource(dataSource());
-      em.setPackagesToScan(new String[] { "com.adobe.prj.entity" });
+      em.setPackagesToScan(new String[] { "com.cisco.prj.entity" });
  
       JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
       em.setJpaVendorAdapter(vendorAdapter);
